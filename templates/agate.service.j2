@@ -1,0 +1,14 @@
+[Unit]
+Description=Agate Gemini Server
+After=network.target
+
+[Service]
+Type=simple
+User=agate
+Group=agate
+Restart=on-failure
+WorkingDirectory=/usr/share/agate
+ExecStart=/usr/share/agate/agate --hostname={{agate_root_domain}} --content={{agate_gemini_root}} --addr 0.0.0.0:{{ agate_port }}
+
+[Install]
+WantedBy=multi-user.target

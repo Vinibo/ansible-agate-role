@@ -1,0 +1,65 @@
+---
+- name: Creating Agate User
+  user:
+    name: agate
+    system: true
+  register: created_user
+
+- name: Create Agate SystemD unit
+  template:
+    src: files/agate.service.j2
+    dest: /lib/systemd/system/agate.service
+
+- name: Create Gemini documents folder
+  file:
+    path: "{{ agate_root }}"
+    state: directory
+    owner: "agate"
+    group: "git"
+    mode: "u=rwX,g=rwX,o=rwX"
+
+- name: Copy a test page for Agate
+  ansible.builtin.copy:
+    src: files/index.gmi
+    dest: "{{ agate_root }}/index.gmi"
+    mode: 0777
+    force: no
+
+- name: Create Agate application folder
+  file:
+    path: "/usr/share/agate"
+    state: directory
+    owner: "root"
+    group: "agate"
+    mode: "u=rwX,g=rwX"
+
+- name: Download linux binary
+  ansible.builtin.get_url:
+    url: "{{ agate_binary_repo_url }}/releases/download/{{ agate_version_tag }}/agate.{{ ansible_architecture }}-unknown-linux-gnu.gz"
+    dest: /tmp/agate.gz
+  when: 
+    - ansible_architecture != "armv7"
+    - ansible_architecture != "armv7l"
+
+- name: Download armv7 linux binary
+  ansible.builtin.get_url:
+    url: "{{ agate_binary_repo_url }}/releases/download/{{ agate_version_tag }}/agate.armv7-unknown-linux-gnueabihf.gz"
+    dest: /tmp/agate.gz
+  when: (ansible_architecture == "armv7" or ansible_architecture == "armv7l")
+
+- name: Extract zipped archive
+  ansible.builtin.shell: gzip -f -d /tmp/agate.gz 
+
+- name: Install Agate server
+  ansible.builtin.copy:
+    src: /tmp/agate
+    dest: /usr/share/agate/agate
+    remote_src: true
+    mode: u=rwx,g=rx,o=x
+
+- name: Starting Agate server
+  systemd:
+    state: restarted
+    name: agate
+    enabled: true
+    daemon_reload: yes

@@ -1,0 +1,8 @@
+---
+agate_binary_repo_url: https://github.com/mbrubeck/agate
+agate_version_tag: v3.3.1
+agate_port: 1965
+
+agate_root: /srv/gemini
+agate_domain: "{{hostname}}"
+
