@@ -1,17 +1,17 @@
 ---
 - name: Creating Agate User
-  user:
+  ansible.builtin.user:
     name: agate
     system: true
   register: created_user
 
 - name: Create Agate SystemD unit
-  template:
+  ansible.builtin.template:
     src: files/agate.service.j2
     dest: /lib/systemd/system/agate.service
 
 - name: Create Gemini documents folder
-  file:
+  ansible.builtin.file:
     path: "{{ agate_root }}"
     state: directory
     owner: "agate"
@@ -23,10 +23,10 @@
     src: files/index.gmi
     dest: "{{ agate_root }}/index.gmi"
     mode: 0777
-    force: no
+    force: false
 
 - name: Create Agate application folder
-  file:
+  ansible.builtin.file:
     path: "/usr/share/agate"
     state: directory
     owner: "root"
@@ -37,7 +37,7 @@
   ansible.builtin.get_url:
     url: "{{ agate_binary_repo_url }}/releases/download/{{ agate_version_tag }}/agate.{{ ansible_architecture }}-unknown-linux-gnu.gz"
     dest: /tmp/agate.gz
-  when: 
+  when:
     - ansible_architecture != "armv7"
     - ansible_architecture != "armv7l"
 
@@ -48,7 +48,7 @@
   when: (ansible_architecture == "armv7" or ansible_architecture == "armv7l")
 
 - name: Extract zipped archive
-  ansible.builtin.shell: gzip -f -d /tmp/agate.gz 
+  ansible.builtin.shell: gzip -f -d /tmp/agate.gz
 
 - name: Install Agate server
   ansible.builtin.copy:
@@ -58,8 +58,8 @@
     mode: u=rwx,g=rx,o=x
 
 - name: Starting Agate server
-  systemd:
+  ansible.builtin.systemd:
     state: restarted
     name: agate
     enabled: true
-    daemon_reload: yes
+    daemon_reload: true

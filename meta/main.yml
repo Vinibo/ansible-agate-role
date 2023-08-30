@@ -1,4 +1,7 @@
 galaxy_info:
+  role_name: ansible_agate_role
+  namespace: vinibo
+
   author: Vincent Bolduc
   description: your role description
 
@@ -8,7 +11,7 @@ galaxy_info:
 
   platforms: all
 
-  galaxy_tags: 
+  galaxy_tags:
     - agate
     - gemini
 
