@@ -5,15 +5,9 @@ galaxy_info:
   role_name: ansible_agate_role
   namespace: vinibo
   description: The Gemini server Agate
-
   author: Vincent Bolduc
-
   license: MIT
-
-  min_ansible_version: 2.1
-
-  platforms: all
-
   galaxy_tags:
     - agate
     - gemini
+  min_ansible_version: "2.1"
