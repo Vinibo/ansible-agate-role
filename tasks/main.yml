@@ -47,15 +47,11 @@
     dest: /tmp/agate.gz
   when: (ansible_architecture == "armv7" or ansible_architecture == "armv7l")
 
-- name: Extract zipped archive
-  ansible.builtin.shell: gzip -f -d /tmp/agate.gz
-
-- name: Install Agate server
-  ansible.builtin.copy:
-    src: /tmp/agate
-    dest: /usr/share/agate/agate
+- name: Extract zipper archive
+  ansible.builtin.unarchive:
+    src: /tmp/agate.gz
+    dest: /usr/share/agate/
     remote_src: true
-    mode: u=rwx,g=rx,o=x
 
 - name: Starting Agate server
   ansible.builtin.systemd:
