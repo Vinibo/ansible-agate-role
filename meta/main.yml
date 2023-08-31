@@ -2,7 +2,7 @@
 dependencies: []
 
 galaxy_info:
-  role_name: ansible_agate_role
+  role_name: agate
   namespace: vinibo
   description: The Gemini server Agate
   author: Vincent Bolduc

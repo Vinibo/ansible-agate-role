@@ -1,9 +1,4 @@
 ---
-- name: Install playbook dependencies
-  ansible.builtin.package:
-    name: unzip
-    state: present
-    
 - name: Creating Agate User
   ansible.builtin.user:
     name: agate
