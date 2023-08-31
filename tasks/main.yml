@@ -15,7 +15,7 @@
     path: "{{ agate_root_folder }}"
     state: directory
     owner: "agate"
-    group: "git"
+    group: "agate"
     mode: "u=rwX,g=rwX,o=rwX"
 
 - name: Copy a test page for Agate
@@ -29,7 +29,7 @@
   ansible.builtin.file:
     path: "/usr/share/agate"
     state: directory
-    owner: "root"
+    owner: "agate"
     group: "agate"
     mode: "u=rwX,g=rwX"
 
