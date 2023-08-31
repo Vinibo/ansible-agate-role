@@ -7,7 +7,7 @@
 
 - name: Create Agate SystemD unit
   ansible.builtin.template:
-    src: files/agate.service.j2
+    src: template/agate.service.j2
     dest: /lib/systemd/system/agate.service
 
 - name: Create Gemini documents folder
