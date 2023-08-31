@@ -1,4 +1,9 @@
 ---
+- name: Install playbook dependencies
+  ansible.builtin.package:
+    name: unzip
+    state: present
+    
 - name: Creating Agate User
   ansible.builtin.user:
     name: agate
@@ -47,7 +52,7 @@
     dest: /tmp/agate.gz
   when: (ansible_architecture == "armv7" or ansible_architecture == "armv7l")
 
-- name: Extract zipper archive
+- name: Extract Agate binary
   ansible.builtin.unarchive:
     src: /tmp/agate.gz
     dest: /usr/share/agate/
