@@ -12,7 +12,7 @@
 
 - name: Create Gemini documents folder
   ansible.builtin.file:
-    path: "{{ agate_root }}"
+    path: "{{ agate_root_folder }}"
     state: directory
     owner: "agate"
     group: "git"
@@ -21,7 +21,7 @@
 - name: Copy a test page for Agate
   ansible.builtin.copy:
     src: files/index.gmi
-    dest: "{{ agate_root }}/index.gmi"
+    dest: "{{ agate_root_folder }}/index.gmi"
     mode: 0777
     force: false
 
