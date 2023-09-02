@@ -8,7 +8,7 @@ User=agate
 Group=agate
 Restart=on-failure
 WorkingDirectory=/usr/share/agate
-ExecStart=/usr/share/agate/agate --hostname={{ agate_root_domain }} --content={{ agate_root_domain }} --addr 0.0.0.0:{{ agate_port }}
+ExecStart=/usr/share/agate/agate --hostname={{ agate_root_domain }} --content={{ agate_root_folder }} --addr 0.0.0.0:{{ agate_port }}
 
 [Install]
 WantedBy=multi-user.target
