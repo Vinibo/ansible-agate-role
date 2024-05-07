@@ -40,6 +40,7 @@
   when:
     - ansible_architecture != "armv7"
     - ansible_architecture != "armv7l"
+    - ansible_architecture != "riscv64"
 
 - name: Download armv7 linux binary
   ansible.builtin.get_url:
@@ -47,8 +48,15 @@
     dest: /tmp/agate.gz
   when: (ansible_architecture == "armv7" or ansible_architecture == "armv7l")
 
+- name: Download RISC-V 64bit linux binary
+  ansible.builtin.copy:
+    src: files/agate-riscv64
+    dest: /tmp/agate
+  when: (ansible_architecture == "riscv64")
+
 - name: Extract Agate binary
   ansible.builtin.shell: gzip -f -d /tmp/agate.gz 
+  when: (ansible_architecture != "riscv64")
 
 - name: Install Agate server
   ansible.builtin.copy:

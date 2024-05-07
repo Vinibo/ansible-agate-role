@@ -1,7 +1,7 @@
 Ansible Agate
 =========
 
-This role deploy the Agate Gemini Server (https://github.com/mbrubeck/agate) on x86 or ARM Linux computers.
+This role deploy the Agate Gemini Server (https://github.com/mbrubeck/agate) on x86, ARM or RISC-V Linux computers.
 
 Requirements
 ------------
